@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevHelp</title>
+
+    <!-- tailwind cdn  -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+        /* From Uiverse.io by ilkhoeri */
+        .button {
+            --h-button: 48px;
+            --w-button: 102px;
+            --round: 0.75rem;
+            cursor: pointer;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            background: radial-gradient(65.28% 65.28% at 50% 100%,
+                    rgba(223, 113, 255, 0.8) 0%,
+                    rgba(223, 113, 255, 0) 100%),
+                linear-gradient(0deg, #7a5af8, #7a5af8);
+            border-radius: var(--round);
+            border: none;
+            outline: none;
+            padding: 12px 18px;
+        }
+
+        .button::before,
+        .button::after {
+            content: "";
+            position: absolute;
+            inset: var(--space);
+            transition: all 0.5s ease-in-out;
+            border-radius: calc(var(--round) - var(--space));
+            z-index: 0;
+        }
+
+        .button::before {
+            --space: 1px;
+            background: linear-gradient(177.95deg,
+                    rgba(255, 255, 255, 0.19) 0%,
+                    rgba(255, 255, 255, 0) 100%);
+        }
+
+        .button::after {
+            --space: 2px;
+            background: radial-gradient(65.28% 65.28% at 50% 100%,
+                    rgba(223, 113, 255, 0.8) 0%,
+                    rgba(223, 113, 255, 0) 100%),
+                linear-gradient(0deg, #7a5af8, #7a5af8);
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .fold {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 1rem;
+            width: 1rem;
+            display: inline-block;
+            transition: all 0.5s ease-in-out;
+            background: radial-gradient(100% 75% at 55%,
+                    rgba(223, 113, 255, 0.8) 0%,
+                    rgba(223, 113, 255, 0) 100%);
+            box-shadow: 0 0 3px black;
+            border-bottom-left-radius: 0.5rem;
+            border-top-right-radius: var(--round);
+        }
+
+        .fold::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150%;
+            height: 150%;
+            transform: rotate(45deg) translateX(0%) translateY(-18px);
+            background-color: #e8e8e8;
+            pointer-events: none;
+        }
+
+        .button:hover .fold {
+            margin-top: -1rem;
+            margin-right: -1rem;
+        }
+
+        .points_wrapper {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .points_wrapper .point {
+            bottom: -10px;
+            position: absolute;
+            animation: floating-points infinite ease-in-out;
+            pointer-events: none;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 9999px;
+        }
+
+        @keyframes floating-points {
+            0% {
+                transform: translateY(0);
+            }
+
+            85% {
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(-55px);
+                opacity: 0;
+            }
+        }
+
+        .points_wrapper .point:nth-child(1) {
+            left: 10%;
+            opacity: 1;
+            animation-duration: 2.35s;
+            animation-delay: 0.2s;
+        }
+
+        .points_wrapper .point:nth-child(2) {
+            left: 30%;
+            opacity: 0.7;
+            animation-duration: 2.5s;
+            animation-delay: 0.5s;
+        }
+
+        .points_wrapper .point:nth-child(3) {
+            left: 25%;
+            opacity: 0.8;
+            animation-duration: 2.2s;
+            animation-delay: 0.1s;
+        }
+
+        .points_wrapper .point:nth-child(4) {
+            left: 44%;
+            opacity: 0.6;
+            animation-duration: 2.05s;
+        }
+
+        .points_wrapper .point:nth-child(5) {
+            left: 50%;
+            opacity: 1;
+            animation-duration: 1.9s;
+        }
+
+        .points_wrapper .point:nth-child(6) {
+            left: 75%;
+            opacity: 0.5;
+            animation-duration: 1.5s;
+            animation-delay: 1.5s;
+        }
+
+        .points_wrapper .point:nth-child(7) {
+            left: 88%;
+            opacity: 0.9;
+            animation-duration: 2.2s;
+            animation-delay: 0.2s;
+        }
+
+        .points_wrapper .point:nth-child(8) {
+            left: 58%;
+            opacity: 0.8;
+            animation-duration: 2.25s;
+            animation-delay: 0.2s;
+        }
+
+        .points_wrapper .point:nth-child(9) {
+            left: 98%;
+            opacity: 0.6;
+            animation-duration: 2.6s;
+            animation-delay: 0.1s;
+        }
+
+        .points_wrapper .point:nth-child(10) {
+            left: 65%;
+            opacity: 1;
+            animation-duration: 2.5s;
+            animation-delay: 0.2s;
+        }
+
+        .inner {
+            z-index: 2;
+            gap: 6px;
+            position: relative;
+            width: 100%;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .inner svg.icon {
+            width: 18px;
+            height: 18px;
+            transition: fill 0.1s linear;
+        }
+
+        .button:focus svg.icon {
+            fill: white;
+        }
+
+        .button:hover svg.icon {
+            fill: transparent;
+            animation:
+                dasharray 1s linear forwards,
+                filled 0.1s linear forwards 0.95s;
+        }
+
+        @keyframes dasharray {
+            from {
+                stroke-dasharray: 0 0 0 0;
+            }
+
+            to {
+                stroke-dasharray: 68 68 0 0;
+            }
+        }
+
+        @keyframes filled {
+            to {
+                fill: white;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-serif">
+
+    <div class="h-screen flex justify-center items-center max-w-6xl mx-auto p-10 ">
+        <div class="flex justify-center items-center">
+            <div class="border md:p-20 p-10">
+                <h1 class=" text-3xl md:text-6xl text-center font-bold
+                
+                bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+                    Easy Mode 50+ Development Resources Link
+                </h1>
+                <p class="text-sm font-bold text-center">Version:0.5 |<span class="text-blue-700">Update version coming soon 1.0</span></p>
+                <div class="flex justify-center items-center gap-10 mt-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <a href="#hello" type="button" class="button">
+                            <span class="fold"></span>
+
+                            <div class="points_wrapper">
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                            </div>
+
+                            <span class="inner"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2.5">
+                                    <polyline
+                                        points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
+                                    </polyline>
+                                </svg>Ui/Ux</span>
+                        </a>
+                        <button type="button" class="button">
+                            <span class="fold"></span>
+
+                            <div class="points_wrapper">
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                            </div>
+
+                            <span class="inner"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2.5">
+                                    <polyline
+                                        points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
+                                    </polyline>
+                                </svg>Credits</span>
+                        </button>
+                        <button type="button" class="button">
+                            <span class="fold"></span>
+
+                            <div class="points_wrapper">
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                                <i class="point"></i>
+                            </div>
+
+                            <span class="inner"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2.5">
+                                    <polyline
+                                        points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
+                                    </polyline>
+                                </svg>Credits</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- all btn section  -->
+
+    <!-- 11111111111 -->
+    <section id="hello" class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center">1...UI/UX design </h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://www.figma.com/" target="_blank"  class="btn btn-outline">Figma</a>
+            <a href="https://pixso.net/app/" target="_blank" class="btn btn-outline btn-primary">Pixso</a>
+          
+        </div>
+    </section>
+    <!-- 2222222222 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center">2...icon & fonts </h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://heroicons.com/" target="_blank"  class="btn btn-outline">Hero icons</a>
+            <a href="https://react-icons.github.io/react-icons/" target="_blank" class="btn btn-outline btn-primary">React icons</a>
+            <a href="https://mui.com/material-ui/material-icons/" target="_blank" class="btn btn-outline btn-secondary"> Material icons</a>
+            <a href="https://fonts.google.com/" target="_blank" class="btn btn-outline btn-secondary">Google fonts</a>
+            <a href="https://fontawesome.com/" target="_blank" class="btn btn-outline btn-accent">Font Awesome</a>
+        </div>
+    </section>
+    <!-- 333333333 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center">3... Database </h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://www.mongodb.com/" target="_blank" class="btn btn-outline btn-secondary">MongoDB</a>
+          
+        </div>
+    </section>
+    <!-- 44444444444 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center">4...image host, resolution convert & overlay </h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            
+            <a href="https://imgbb.com/" target="_blank" class="btn btn-outline btn-primary">ImgBB</a>
+            <a href="https://tinypng.com/" target="_blank" class="btn btn-outline btn-secondary">TinnyPNG</a>
+            <a href="https://overlay.imageonline.co/" target="_blank" class="btn btn-outline btn-accent">Img Overlay</a>
+        </div>
+    </section>
+    <!-- 555555555555 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 5...web hosting </h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://app.netlify.com/" target="_blank"  class="btn btn-outline">Netlify</a>
+            <a href="https://vercel.com/" target="_blank" class="btn btn-outline btn-primary">Vercel</a>
+            <a href="https://firebase.google.com/" target="_blank" class="btn btn-outline btn-primary">Firebase</a>
+           
+        </div>
+    </section>
+    <!-- 666666666666 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center">6... css library and framework</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://tailwindcss.com/docs/installation" target="_blank"  class="btn btn-outline">Tailwind CSS</a>
+            <a href="https://daisyui.com/" target="_blank" class="btn btn-outline btn-primary">DaisyUi</a>
+            <a href="https://mui.com/material-ui/" target="_blank" class="btn btn-outline btn-primary">Material Ui</a>
+            <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/" target="_blank" class="btn btn-outline btn-accent">Bootstrap 5</a>
+        </div>
+    </section>
+    <!-- 777777777777 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 7...design generate</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://hype4.academy/tools/glassmorphism-generator" target="_blank"  class="btn btn-outline">
+                Glassmorphism design
+            </a>
+            <a href="https://neumorphism.io/#e0e0e0" target="_blank" class="btn btn-outline btn-primary">
+                Neumorphism design
+            </a>
+            <a href="https://uiverse.io/" target="_blank" class="btn btn-outline btn-secondary">Ui Verse</a>
+            <a href="https://bennettfeely.com/clippy/" target="_blank" class="btn btn-outline btn-accent">Clip Path</a>
+        </div>
+    </section>
+    <!-- 8888888888888 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 8...Auth</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://firebase.google.com/" target="_blank" class="btn btn-outline btn-primary">Firebase</a>
+        </div>
+    </section>
+    <!-- 99999999999 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 9...React tools</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://vite.dev/" target="_blank" class="btn btn-outline btn-secondary">
+                Develop Project with vite
+            </a>
+            <a href="https://react.dev/" target="_blank"  class="btn btn-outline">React Dev</a>
+            <a href="https://reactrouter.com/en/main" target="_blank" class="btn btn-outline btn-primary">React Router Dom</a>
+            <a href="https://www.npmjs.com/package/react-toastify" target="_blank" class="btn btn-outline btn-secondary">React Toastify</a>
+            <a href="https://www.npmjs.com/package/react-modal" target="_blank" class="btn btn-outline btn-primary">React Modal</a>
+            <a href="https://github.com/brillout/awesome-react-components" target="_blank" class="btn btn-outline btn-secondary">Awesome React Components</a>
+            <a href="https://react-icons.github.io/react-icons/" target="_blank" class="btn btn-outline btn-primary">React icons</a>
+            <a href="https://github.com/" target="_blank" class="btn btn-outline btn-primary">Github</a>
+            <a href="https://swiperjs.com/" target="_blank" class="btn btn-outline btn-accent">Swiper js</a>
+        </div>
+    </section>
+    <!-- 10000000000000 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 10... Animation</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://michalsnik.github.io/aos/" target="_blank"  class="btn btn-outline">AOS</a>
+        </div>
+    </section>
+    <!-- 1111111111111111111 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 11... Server & Run Time</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://nodejs.org/en" target="_blank"  class="btn btn-outline">Node js</a>
+            <a href="https://expressjs.com/" target="_blank" class="btn btn-outline btn-primary">Express Js</a>
+        </div>
+    </section>
+    <!-- 11111111111122222222222222 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 12... Notes</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <a href="https://keep.google.com/" target="_blank"  class="btn btn-outline">Google Keep Notes</a>
+            <a href="https://www.notion.so/bc0404602ebd42d987e42d8b92b51d1f?v=046f50dbda2b459392345a0beaa5d376" target="_blank" class="btn btn-outline btn-primary">Notion</a>
+        </div>
+    </section>
+    <!-- 1111111111113333333333333333 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 13...Web Testing Tools</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <!-- <a href="https://keep.google.com/" target="_blank"  class="btn btn-outline">Google Keep Notes</a>
+            <a href="https://www.notion.so/bc0404602ebd42d987e42d8b92b51d1f?v=046f50dbda2b459392345a0beaa5d376" target="_blank" class="btn btn-outline btn-primary">Notion</a> -->
+        </div>
+    </section>
+    <!-- 11111111111444444444444 -->
+    <section class="my-20 max-w-6xl mx-auto p-10">
+        <h1 class="text-2xl uppercase font-bold text-center"> 14...Artificial Intelligence (AI)</h1>
+        <hr>
+        <div class="flex flex-wrap justify-center items-center gap-4 mt-5">
+            <!-- <a href="https://keep.google.com/" target="_blank"  class="btn btn-outline">Google Keep Notes</a>
+            <a href="https://www.notion.so/bc0404602ebd42d987e42d8b92b51d1f?v=046f50dbda2b459392345a0beaa5d376" target="_blank" class="btn btn-outline btn-primary">Notion</a> -->
+        </div>
+    </section>
+</body>
+
+</html>
